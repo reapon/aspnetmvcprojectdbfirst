@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Ashraful_MVCProject.Models.Supplier>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutForAdmin.cshtml";
+
+
+
+}
+
+<h2 style="text-align:center;">Supplier Information List</h2>
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+
+
+</p>
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+
+        <th>
+            Supplier Image
+        </th>
+
+        <th style="text-align:center;">Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplierName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+
+        <td>
+            <img src="@Url.Content(item.ImagePath)" height="80" width="80" />
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.SupplierID } , new { @class = "btn btn-warning" }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.SupplierID }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+    }
+
+</table>

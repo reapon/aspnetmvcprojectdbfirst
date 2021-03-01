@@ -1,0 +1,7 @@
+﻿        [NotMapped]
+        public HttpPostedFileBase ImageUpload { get; set; }
+
+        public Supplier()
+        {
+            ImagePath = "~/AppFiles/Images/default.png";
+        }

@@ -1,0 +1,161 @@
+﻿@model Ashraful_MVCProject.Models.CustomerRegistraion
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Enter Your Information</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("Gender", new List<SelectListItem>
+            {
+                new SelectListItem{ Text="Male", Value="Male"},
+                new SelectListItem{ Text="Female", Value="Female"},
+                new SelectListItem{ Text="Others", Value="Others"}
+            }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @if (ViewBag.CountryList != null)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.CountryID, "CountryID", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(m => m.CountryID, ViewBag.CountryList as SelectList, "-- Select Country--", new { @class = "form-control" })
+
+
+
+            </div>
+
+        </div>
+     }
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StateID, "StateID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.DropDownList("StateID", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownListFor(m => m.StateID, new SelectList(""), "--Select State--", new { @class = "form-control" })
+
+
+                @Html.ValidationMessageFor(model => model.StateID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CityID, "CityID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.DropDownList("CityID", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownListFor(m => m.CityID, new SelectList(""), "--Select City--", new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#CountryID").change(function () {
+
+            var countryId = $(this).val();
+            debugger
+            $.ajax({
+
+                type: "Post",
+                url: "/Customer/GetStateList?CountryId=" + countryId,
+                contentType:"html",
+                success: function (response) {
+                  debugger
+                    $("#StateID").empty();
+                    $("#StateID").append(response);
+
+                }
+
+            })
+
+        })
+
+
+        $("#StateID").change(function () {
+
+            var stateId = $(this).val();
+            debugger
+            $.ajax({
+
+                type: "Post",
+                url: "/Customer/GetCityList?stateId=" + stateId,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#CityID").empty();
+                    $("#CityID").append(response);
+
+                }
+
+            })
+
+        })
+
+    })
+
+</script>

@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Ashraful_MVCProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Ashraful_MVCProjectEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Authors" EntityType="Ashraful_MVCProjectModel.Author" />
+    <EntitySet Name="Publishers" EntityType="Ashraful_MVCProjectModel.Publisher" />
+    <EntitySet Name="Suppliers" EntityType="Ashraful_MVCProjectModel.Supplier" />
+    <EntitySet Name="Books" EntityType="Ashraful_MVCProjectModel.Book" />
+    <AssociationSet Name="FK__Book__AuthorID__02FC7413" Association="Ashraful_MVCProjectModel.FK__Book__AuthorID__02FC7413">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Book__PublisherI__03F0984C" Association="Ashraful_MVCProjectModel.FK__Book__PublisherI__03F0984C">
+      <End Role="Publisher" EntitySet="Publishers" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <EntitySet Name="Cities" EntityType="Ashraful_MVCProjectModel.City" />
+    <EntitySet Name="Countries" EntityType="Ashraful_MVCProjectModel.Country" />
+    <EntitySet Name="States" EntityType="Ashraful_MVCProjectModel.State" />
+    <AssociationSet Name="FK__City__StateID__1AD3FDA4" Association="Ashraful_MVCProjectModel.FK__City__StateID__1AD3FDA4">
+      <End Role="State" EntitySet="States" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK__State__CountryID__17F790F9" Association="Ashraful_MVCProjectModel.FK__State__CountryID__17F790F9">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="State" EntitySet="States" />
+    </AssociationSet>
+    <EntitySet Name="CustomerRegistraions" EntityType="Ashraful_MVCProjectModel.CustomerRegistraion" />
+    <AssociationSet Name="FK__CustomerR__CityI__1DB06A4F" Association="Ashraful_MVCProjectModel.FK__CustomerR__CityI__1DB06A4F">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="CustomerRegistraion" EntitySet="CustomerRegistraions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CustomerR__Count__1BC821DD" Association="Ashraful_MVCProjectModel.FK__CustomerR__Count__1BC821DD">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="CustomerRegistraion" EntitySet="CustomerRegistraions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CustomerR__State__1CBC4616" Association="Ashraful_MVCProjectModel.FK__CustomerR__State__1CBC4616">
+      <End Role="State" EntitySet="States" />
+      <End Role="CustomerRegistraion" EntitySet="CustomerRegistraions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="AuthorID" />
+    </Key>
+    <Property Name="AuthorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AuthorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="BirthDate" Type="DateTime" Precision="0" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Books" Relationship="Ashraful_MVCProjectModel.FK__Book__AuthorID__02FC7413" FromRole="Author" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="Publisher">
+    <Key>
+      <PropertyRef Name="PublisherID" />
+    </Key>
+    <Property Name="PublisherID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PublisherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Books" Relationship="Ashraful_MVCProjectModel.FK__Book__PublisherI__03F0984C" FromRole="Publisher" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupplierName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="BookID" />
+    </Key>
+    <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="BookPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="BookEdition" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="AuthorID" Type="Int32" />
+    <Property Name="PublisherID" Type="Int32" />
+    <NavigationProperty Name="Author" Relationship="Ashraful_MVCProjectModel.FK__Book__AuthorID__02FC7413" FromRole="Book" ToRole="Author" />
+    <NavigationProperty Name="Publisher" Relationship="Ashraful_MVCProjectModel.FK__Book__PublisherI__03F0984C" FromRole="Book" ToRole="Publisher" />
+  </EntityType>
+  <Association Name="FK__Book__AuthorID__02FC7413">
+    <End Type="Ashraful_MVCProjectModel.Author" Role="Author" Multiplicity="0..1" />
+    <End Type="Ashraful_MVCProjectModel.Book" Role="Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="AuthorID" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="AuthorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Book__PublisherI__03F0984C">
+    <End Type="Ashraful_MVCProjectModel.Publisher" Role="Publisher" Multiplicity="0..1" />
+    <End Type="Ashraful_MVCProjectModel.Book" Role="Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="PublisherID" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="PublisherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StateID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="State" Relationship="Ashraful_MVCProjectModel.FK__City__StateID__1AD3FDA4" FromRole="City" ToRole="State" />
+    <NavigationProperty Name="CustomerRegistraions" Relationship="Ashraful_MVCProjectModel.FK__CustomerR__CityI__1DB06A4F" FromRole="City" ToRole="CustomerRegistraion" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="CountryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CountryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="States" Relationship="Ashraful_MVCProjectModel.FK__State__CountryID__17F790F9" FromRole="Country" ToRole="State" />
+    <NavigationProperty Name="CustomerRegistraions" Relationship="Ashraful_MVCProjectModel.FK__CustomerR__Count__1BC821DD" FromRole="Country" ToRole="CustomerRegistraion" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateID" />
+    </Key>
+    <Property Name="StateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CountryID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cities" Relationship="Ashraful_MVCProjectModel.FK__City__StateID__1AD3FDA4" FromRole="State" ToRole="City" />
+    <NavigationProperty Name="Country" Relationship="Ashraful_MVCProjectModel.FK__State__CountryID__17F790F9" FromRole="State" ToRole="Country" />
+    <NavigationProperty Name="CustomerRegistraions" Relationship="Ashraful_MVCProjectModel.FK__CustomerR__State__1CBC4616" FromRole="State" ToRole="CustomerRegistraion" />
+  </EntityType>
+  <Association Name="FK__City__StateID__1AD3FDA4">
+    <End Type="Ashraful_MVCProjectModel.State" Role="State" Multiplicity="1" />
+    <End Type="Ashraful_MVCProjectModel.City" Role="City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="StateID" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="StateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__State__CountryID__17F790F9">
+    <End Type="Ashraful_MVCProjectModel.Country" Role="Country" Multiplicity="1" />
+    <End Type="Ashraful_MVCProjectModel.State" Role="State" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryID" />
+      </Principal>
+      <Dependent Role="State">
+        <PropertyRef Name="CountryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CustomerRegistraion">
+    <Key>
+      <PropertyRef Name="CustomerRegistraionID" />
+    </Key>
+    <Property Name="CustomerRegistraionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="CountryID" Type="Int32" />
+    <Property Name="StateID" Type="Int32" />
+    <Property Name="CityID" Type="Int32" />
+    <NavigationProperty Name="City" Relationship="Ashraful_MVCProjectModel.FK__CustomerR__CityI__1DB06A4F" FromRole="CustomerRegistraion" ToRole="City" />
+    <NavigationProperty Name="Country" Relationship="Ashraful_MVCProjectModel.FK__CustomerR__Count__1BC821DD" FromRole="CustomerRegistraion" ToRole="Country" />
+    <NavigationProperty Name="State" Relationship="Ashraful_MVCProjectModel.FK__CustomerR__State__1CBC4616" FromRole="CustomerRegistraion" ToRole="State" />
+  </EntityType>
+  <Association Name="FK__CustomerR__CityI__1DB06A4F">
+    <End Type="Ashraful_MVCProjectModel.City" Role="City" Multiplicity="0..1" />
+    <End Type="Ashraful_MVCProjectModel.CustomerRegistraion" Role="CustomerRegistraion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="CustomerRegistraion">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CustomerR__Count__1BC821DD">
+    <End Type="Ashraful_MVCProjectModel.Country" Role="Country" Multiplicity="0..1" />
+    <End Type="Ashraful_MVCProjectModel.CustomerRegistraion" Role="CustomerRegistraion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryID" />
+      </Principal>
+      <Dependent Role="CustomerRegistraion">
+        <PropertyRef Name="CountryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CustomerR__State__1CBC4616">
+    <End Type="Ashraful_MVCProjectModel.State" Role="State" Multiplicity="0..1" />
+    <End Type="Ashraful_MVCProjectModel.CustomerRegistraion" Role="CustomerRegistraion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="StateID" />
+      </Principal>
+      <Dependent Role="CustomerRegistraion">
+        <PropertyRef Name="StateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
